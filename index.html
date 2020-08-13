@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>IT Basari Dashboard v1.0</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+      crossorigin="anonymous"
+    />
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Font Awesome JS -->
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+      integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+      integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar  -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <img
+            src="/public/logoWhite.svg"
+            width="auto"
+            height="40"
+            class="d-inline-block align-top"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+
+        <ul class="list-unstyled components">
+          <h4 class="pl-5">Dashboard</h4>
+
+          <li>
+            <a onclick="return showForm()">Nueva reservación</a>
+          </li>
+          <li>
+            <a onclick="return showReservations()">Reservaciones</a>
+          </li>
+          <li>
+            <a onclick="return showCheckins()">Registros</a>
+          </li>
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a class="download" href="https://itbasari.com" target="_blank">Página principal</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page Content  -->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-secondary">
+              <i class="fas fa-align-left"></i>
+              <span>Ocultar barra lateral</span>
+            </button>
+            <button
+              class="btn btn-dark d-inline-block d-lg-none ml-auto"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-align-justify"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" disabled href="#">Cerrar sesión</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" disabled href="#">Perfil</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- Reservation form -->
+        <div id="regForm">
+          <h4>REGISTRAR RESERVACIÓN</h4>
+          <div>
+            <form id="Forma">
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="reservacion"
+                  placeholder="# de reservación"
+                  required
+                  class="form-control"
+                />
+                <input
+                  type="datetime-local"
+                  id="checkin"
+                  placeholder="checkin"
+                  required
+                  class="form-control"
+                />
+                <input
+                  type="datetime-local"
+                  id="checkout"
+                  placeholder="chekout"
+                  required
+                  class="form-control"
+                />
+                <input
+                  type="text"
+                  id="nombre"
+                  placeholder="nombre"
+                  required
+                  class="form-control my-3"
+                />
+                <input
+                  type="text"
+                  id="apellido"
+                  placeholder="apellido"
+                  required
+                  class="form-control my-3"
+                />
+                <input
+                  type="text"
+                  id="room"
+                  placeholder="Tipo de cuarto"
+                  required
+                  class="form-control my-3"
+                />
+                <input
+                  type="number"
+                  id="adults"
+                  placeholder="Número de adultos"
+                  required
+                  class="form-control my-3"
+                />
+                <input
+                  type="number"
+                  id="childs"
+                  placeholder="Cuantos niños lo acompañan"
+                  required
+                  class="form-control my-3"
+                />
+                <input
+                  type="email"
+                  id="correo"
+                  placeholder="correo electrónico"
+                  class="form-control my-3"
+                />
+                <input type="phone" id="phone" placeholder="teléfono" class="form-control my-3" />
+                <p id="registered"></p>
+
+                <button class="btn btn-info" id="boton" onclick="guardar()">GUARDAR</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Reservations lists -->
+
+        <div id="reservations">
+          <table id="tabla1" class="table my-3">
+            <thead>
+              <tr>
+                <th scope="col"># Reservacion</th>
+                <th scope="col">Llegada</th>
+                <th scope="col">Salida</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">TIpo de Cuarto</th>
+                <th scope="col"># Adultos</th>
+                <th scope="col"># de niños</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+
+                <th scope="col">Eliminar</th>
+                <th scope="col">Editar</th>
+              </tr>
+              <h4>Lista de reservaciones</h4>
+            </thead>
+            <tbody id="tchki"></tbody>
+          </table>
+        </div>
+        <!-- Check in lists -->
+        <div id="checkins">
+          <table id="tabla2" class="table my-3">
+            <thead>
+              <tr>
+                <th scope="col"># Reservacion</th>
+                <th scope="col">Llegada</th>
+                <th scope="col">Salida</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">TIpo de Cuarto</th>
+                <th scope="col"># Adultos</th>
+                <th scope="col"># de niños</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Hora Chkin</th>
+                <th scope="col">ID Imagen</th>
+              </tr>
+              <h4>Lista de reservaciones con registro</h4>
+            </thead>
+            <tbody id="tchko"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Popper.JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+      integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+      integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        showForm();
+        $('#sidebar').mCustomScrollbar({
+          theme: 'minimal',
+        });
+
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar, #content').toggleClass('active');
+          $('.collapse.in').toggleClass('in');
+          $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+      });
+
+      function showForm() {
+        document.getElementById('regForm').style.display = 'block';
+        document.getElementById('reservations').style.display = 'none';
+        document.getElementById('checkins').style.display = 'none';
+        return false;
+      }
+      function showReservations() {
+        document.getElementById('reservations').style.display = 'block';
+        document.getElementById('regForm').style.display = 'none';
+        document.getElementById('checkins').style.display = 'none';
+        return false;
+      }
+      function showCheckins() {
+        document.getElementById('checkins').style.display = 'block';
+        document.getElementById('reservations').style.display = 'none';
+        document.getElementById('regForm').style.display = 'none';
+        return false;
+      }
+    </script>
+  </body>
+</html>
